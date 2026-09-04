@@ -35,7 +35,7 @@ export default function Hero() {
           </Button>
           <Button
             variant="outline"
-            className="rounded-sm border-white/40 bg-transparent px-6 py-3 sm:py-6 text-xs font-semibold uppercase tracking-widest text-white hover:bg-white/10 w-full sm:w-auto"
+            className="rounded-sm border-white/40 bg-transparent px-6 py-3 sm:py-6 text-xs font-semibold uppercase tracking-widest text-white hover:bg-white/10 w-full sm:w-auto hover:text-white/75"
           >
             View properties
           </Button>

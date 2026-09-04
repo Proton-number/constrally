@@ -1,6 +1,10 @@
-import React from "react";
+interface Pillar {
+  index: string;
+  title: string;
+  description: string;
+}
 
-const pillars = [
+const pillars: Pillar[] = [
   {
     index: "01",
     title: "Land & development",
@@ -23,7 +27,7 @@ const pillars = [
 
 export default function Pillars() {
   return (
-    <section className="bg-neutral-50 px-6 py-24">
+    <section className="px-6 py-24">
       <div className="mx-auto max-w-3xl text-center">
         <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-500">
           What we do
