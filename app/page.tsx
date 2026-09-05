@@ -1,5 +1,7 @@
 import Collection from "@/components/Collection";
+import Contact from "@/components/Contact";
 import Difference from "@/components/Difference";
+import Faq from "@/components/Faq";
 import Hero from "@/components/Hero";
 import Pillars from "@/components/Pillars";
 import Steps from "@/components/Steps";
@@ -14,6 +16,8 @@ export default function Home() {
       <Collection />
       <Difference />
       <Testimonials />
+      <Faq />
+      <Contact />
     </>
   );
 }

@@ -29,9 +29,6 @@ export default function Pillars() {
   return (
     <section className="px-6 py-24">
       <div className="mx-auto max-w-3xl text-center">
-        <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-500">
-          What we do
-        </h3>
         <h2 className="mt-3 font-serif text-3xl font-medium tracking-tight text-neutral-900 md:text-5xl">
           Three pillars, one vision.
         </h2>
