@@ -30,7 +30,7 @@ export default function Nav() {
         {/* Logo */}
         <a href="#" className="group flex items-center gap-2.5">
           <span className="relative flex h-8 w-8 items-center justify-center">
-            <span className="absolute inset-0 rotate-45 rounded-[6px] border-2 border-amber-400 transition-transform duration-300 group-hover:rotate-[55deg]" />
+            <span className="absolute inset-0 rotate-45 rounded-[6px] border-2 border-amber-400 transition-transform duration-300 group-hover:rotate-55" />
             <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
           </span>
           <span className="font-serif text-2xl tracking-tight text-neutral-900">
@@ -56,14 +56,6 @@ export default function Nav() {
           ))}
         </ul>
 
-        {/* CTA */}
-        <div className="hidden md:block">
-          <Button className="inline-flex items-center rounded-sm bg-neutral-900 px-6 py-5 text-xs font-semibold uppercase tracking-widest text-white transition-colors hover:bg-neutral-700">
-            Get a quote
-          </Button>
-        </div>
-
-        {/* Mobile toggle */}
         <button
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
