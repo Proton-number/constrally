@@ -2,19 +2,30 @@ const { createServer } = require("http");
 const { parse } = require("url");
 const next = require("next");
 
-// Detect the port cPanel assigns dynamically, fallback to 3000 for local testing
+// Force port to a string or fallback number as cPanel requires
 const port = process.env.PORT || 3000;
-// FORCED PRODUCTION: Tells Next.js to strictly read the uploaded production build folder
 const dev = false;
-const app = next({ dev });
+const app = next({ dev, conf: { hostname: "localhost", port } });
 const handle = app.getRequestHandler();
 
-app.prepare().then(() => {
-  createServer((req, res) => {
-    const parsedUrl = parse(req.url, true);
-    handle(req, res, parsedUrl);
-  }).listen(port, (err) => {
-    if (err) throw err;
-    console.log(`> Ready on http://localhost:${port}`);
+app
+  .prepare()
+  .then(() => {
+    const server = createServer((req, res) => {
+      const parsedUrl = parse(req.url, true);
+      handle(req, res, parsedUrl);
+    });
+
+    // Bind to '0.0.0.0' or 'localhost' explicitly to ensure the cPanel passenger proxy hooks in
+    server.listen(port, "localhost", (err) => {
+      if (err) {
+        console.error("Failed to start server:", err);
+        process.exit(1);
+      }
+      console.log(`> Ready on port ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Next.js preparation failed:", err);
+    process.exit(1);
   });
-});
