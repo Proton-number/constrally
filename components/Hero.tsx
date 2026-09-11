@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { motion } from "motion/react";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -29,16 +30,20 @@ export default function Hero() {
         </p>
 
         <div className="mt-8 flex w-full flex-col gap-3 sm:mt-9 sm:w-auto sm:flex-row">
-          <Button className="h-12 w-full rounded-sm bg-white px-7 text-xs font-semibold uppercase tracking-[0.15em] text-neutral-900 hover:bg-neutral-200 sm:w-auto">
-            Enquire now
-          </Button>
+          <Link href="/#properties" className="w-full sm:w-auto">
+            <Button className="h-12 w-full rounded-sm bg-white px-7 text-xs font-semibold uppercase tracking-[0.15em] text-neutral-900 hover:bg-neutral-200 sm:w-auto">
+              Enquire now
+            </Button>
+          </Link>
 
-          <Button
-            variant="outline"
-            className="h-12 w-full rounded-sm border-white/40 bg-transparent px-7 text-xs font-semibold uppercase tracking-[0.15em] text-white hover:bg-white/10 hover:text-white sm:w-auto"
-          >
-            View properties
-          </Button>
+          <Link href="/properties" className="w-full sm:w-auto">
+            <Button
+              variant="outline"
+              className="h-12 w-full rounded-sm border-white/40 bg-transparent px-7 text-xs font-semibold uppercase tracking-[0.15em] text-white hover:bg-white/10 hover:text-white sm:w-auto"
+            >
+              View properties
+            </Button>
+          </Link>
         </div>
 
         <dl className="mt-16 grid w-full max-w-3xl grid-cols-2 border-t border-white/20 pt-7 sm:mt-20 sm:grid-cols-4 sm:pt-8">

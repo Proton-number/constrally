@@ -33,7 +33,7 @@ const collections: COLLECTION[] = [
 
 export default function Collection() {
   return (
-    <section className="px-6 py-24 ">
+    <section id="properties" className="px-6 py-24 ">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-0">
           <h3 className="text-left sm:text-center font-serif text-3xl font-medium leading-tight tracking-tight text-neutral-900 md:text-5xl">

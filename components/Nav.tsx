@@ -2,23 +2,20 @@
 
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import { Button } from "./ui/button";
+import Link from "next/link";
 
 const links = [
-  { label: "Properties", href: "#properties" },
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
+  { label: "Properties", href: "/#properties" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "About", href: "/#about" },
   { label: "Careers", href: "/careers" },
+  { label: "Contact Us", href: "/#contact" },
 ];
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
 
   return (
     <nav
@@ -42,16 +39,19 @@ export default function Nav() {
         <ul className="hidden md:flex md:items-center md:gap-10">
           {links.map((link, i) => (
             <li key={link.label}>
-              <a
+              <Link
+                onClick={() => {
+                  setActiveIndex(i);
+                }}
                 href={link.href}
-                className={`text-xs font-medium uppercase tracking-widest text-neutral-500 transition-colors hover:text-neutral-900 ${
-                  i === 0
+                className={`text-xs font-medium uppercase tracking-widest transition-colors ${
+                  activeIndex === i
                     ? "border-b border-neutral-900 pb-1 text-neutral-900"
-                    : ""
+                    : "text-neutral-500 hover:text-neutral-900"
                 }`}
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -75,23 +75,15 @@ export default function Nav() {
         <ul className="flex flex-col gap-1 border-t border-neutral-200 px-6 py-4">
           {links.map((link) => (
             <li key={link.label}>
-              <a
+              <Link
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className="block rounded-md px-3 py-2.5 text-sm font-medium uppercase tracking-widest text-neutral-700 hover:bg-neutral-100"
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
-          <li className="pt-2">
-            <Button
-              onClick={() => setOpen(false)}
-              className="flex items-center justify-center rounded-sm bg-neutral-900 w-full py-6 text-xs font-semibold uppercase tracking-widest text-white"
-            >
-              Get a quote
-            </Button>
-          </li>
         </ul>
       </div>
     </nav>
