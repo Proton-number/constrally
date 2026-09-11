@@ -3,7 +3,7 @@ name: Deploy Next.js to cPanel
 on:
   push:
     branches:
-      - main # This triggers the upload every time you push to your main branch
+      - master # This triggers the upload every time you push to your master branch
 
 jobs:
   web-deploy:
