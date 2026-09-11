@@ -3,8 +3,8 @@ name: Deploy Next.js to cPanel
 on:
   push:
     branches:
-      - main # This triggers the upload every time you push to your main branch
-    workflow_dispatch: # <--- Add this exact line right here
+      - master # This triggers the upload every time you push to your main branch
+   
 jobs:
   web-deploy:
     name: Build and Transfer
