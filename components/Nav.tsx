@@ -8,7 +8,7 @@ const links = [
   { label: "Properties", href: "#properties" },
   { label: "Services", href: "#services" },
   { label: "About", href: "#about" },
-  { label: "Careers", href: "#careers" },
+  { label: "Careers", href: "/careers" },
 ];
 
 export default function Nav() {
@@ -28,7 +28,7 @@ export default function Nav() {
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         {/* Logo */}
-        <a href="#" className="group flex items-center gap-2.5">
+        <a href="/" className="group flex items-center gap-2.5">
           <span className="relative flex h-8 w-8 items-center justify-center">
             <span className="absolute inset-0 rotate-45 rounded-[6px] border-2 border-amber-400 transition-transform duration-300 group-hover:rotate-55" />
             <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
