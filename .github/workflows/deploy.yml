@@ -25,19 +25,12 @@ jobs:
     - name: Run Next.js Production Build
       run: yarn build
 
-    # FIX: Copies your CSS/JS, public image folders, AND your critical server.js file into the standalone folder
-    - name: Prepare complete standalone bundle
-      run: |
-        cp -r .next/static .next/standalone/.next/
-        cp -r public .next/standalone/ || true
-        cp server.js .next/standalone/ || true
-
     - name: Sync standalone bundle via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./.next/standalone/ # Uploads the fully packed bundle folder
+        local-dir: ./
         server-dir: ./
         dangerous-clean-html: false
