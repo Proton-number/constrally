@@ -3,36 +3,36 @@ name: Deploy Next.js to cPanel
 on:
   push:
     branches:
-      - master # Matches your master branch
-
+      - main # This triggers the upload every time you push to your main branch
+    workflow_dispatch: # <--- Add this exact line right here
 jobs:
   web-deploy:
     name: Build and Transfer
     runs-on: ubuntu-latest
     steps:
-    - name: Get latest code
-      uses: actions/checkout@v4
+      - name: Get latest code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'yarn' # Automatically caches your yarn dependencies for faster builds
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn" # Automatically caches your yarn dependencies for faster builds
 
-    - name: Install dependencies
-      run: yarn install --frozen-lockfile # This is the Yarn equivalent of 'npm ci'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile # This is the Yarn equivalent of 'npm ci'
 
-    - name: Run Next.js Build
-      run: yarn build
-      env:
-        NEXT_PRIVATE_LOCAL_WEBPACK: 'true'
+      - name: Run Next.js Build
+        run: yarn build
+        env:
+          NEXT_PRIVATE_LOCAL_WEBPACK: "true"
 
-    - name: Sync files via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./
-        server-dir: ./
-        dangerous-clean-html: false
+      - name: Sync files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./
+          server-dir: ./
+          dangerous-clean-html: false
