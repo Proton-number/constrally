@@ -6,7 +6,10 @@ import { Button } from "./ui/button";
 
 export default function Contact() {
   return (
-    <section className="px-4 py-16 sm:px-6 sm:py-24">
+    <section
+      id="contact"
+      className="scroll-mt-24 scroll-smooth px-4 py-16 sm:px-6 sm:py-24"
+    >
       <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2 lg:items-start lg:gap-20">
         <div className="w-full">
           <h2 className="mb-6 font-serif text-3xl font-medium tracking-tight text-neutral-900 sm:mb-10 md:text-5xl">
@@ -23,7 +26,7 @@ export default function Contact() {
                 Phone / Direct Line
               </p>
               <h3 className="mt-2 font-serif text-lg text-neutral-900">
-                +234 815 302 7176
+                +234 912 639 3650
               </h3>
             </div>
             <div>

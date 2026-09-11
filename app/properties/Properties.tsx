@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Properties() {
-  return <div>Welcome Properties</div>;
+  return <div className="min-h-screen">Welcome Properties</div>;
 }

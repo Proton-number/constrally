@@ -20,23 +20,40 @@ export default function Footer() {
             </p>
 
             <nav>
-              <ul className="flex flex-wrap gap-x-6 gap-y-3 text-[10px] font-medium uppercase tracking-[0.15em] text-neutral-400">
-                <li>
-                  <a href="/properties" className="hover:text-white">
-                    Properties
-                  </a>
-                </li>
-                <li>
-                  <a href="/about" className="hover:text-white">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="/contact" className="hover:text-white">
-                    Contact
-                  </a>
-                </li>
-              </ul>
+              <div className="mt-4">
+                <ul className="flex flex-wrap gap-x-4 gap-y-2 text-[10px] font-medium uppercase tracking-[0.15em] text-neutral-400">
+                  <li>
+                    <a
+                      href="https://wa.me/message/VC4XY56ZPVCVO1"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-white"
+                    >
+                      WhatsApp
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="http://www.youtube.com/@Constrally"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-white"
+                    >
+                      Youtube
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.instagram.com/constrally?stkn=OWp6dTQ3MXRpNmF4"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-white"
+                    >
+                      Instagram
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </nav>
           </div>
 
