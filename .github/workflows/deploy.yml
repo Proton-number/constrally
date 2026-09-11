@@ -1,4 +1,4 @@
-name: Deploy Next.js to cPanel
+name: Deploy Standalone Next.js to cPanel
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   web-deploy:
-    name: Build and Transfer
+    name: Build and Standalone Transfer
     runs-on: ubuntu-latest
     steps:
     - name: Get latest code
@@ -17,17 +17,15 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'yarn' # Automatically caches your yarn dependencies for faster builds
+        cache: 'yarn'
 
     - name: Install dependencies
-      run: yarn install --frozen-lockfile # This is the Yarn equivalent of 'npm ci'
+      run: yarn install --frozen-lockfile
 
-    - name: Run Next.js Build
+    - name: Run Next.js Production Build
       run: yarn build
-      env:
-        NEXT_PRIVATE_LOCAL_WEBPACK: 'true'
 
-    - name: Sync files via FTP
+    - name: Sync standalone bundle via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ${{ secrets.FTP_SERVER }}
