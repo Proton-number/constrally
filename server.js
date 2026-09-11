@@ -4,7 +4,8 @@ const next = require("next");
 
 // Detect the port cPanel assigns dynamically, fallback to 3000 for local testing
 const port = process.env.PORT || 3000;
-const dev = process.env.NODE_ENV !== "production";
+// FORCED PRODUCTION: Tells Next.js to strictly read the uploaded production build folder
+const dev = false;
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
