@@ -1,18 +1,19 @@
 const { createServer } = require("http");
+const { parse } = require("url");
 const next = require("next");
 
-const app = next({
-  dev: false,
-  hostname: "0.0.0.0",
-  port: process.env.PORT || 3000,
-});
-
+// Detect the port cPanel assigns dynamically, fallback to 3000 for local testing
+const port = process.env.PORT || 3000;
+const dev = process.env.NODE_ENV !== "production";
+const app = next({ dev });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   createServer((req, res) => {
-    handle(req, res);
-  }).listen(process.env.PORT || 3000, "0.0.0.0", () => {
-    console.log("Next.js server is running");
+    const parsedUrl = parse(req.url, true);
+    handle(req, res, parsedUrl);
+  }).listen(port, (err) => {
+    if (err) throw err;
+    console.log(`> Ready on http://localhost:${port}`);
   });
 });
