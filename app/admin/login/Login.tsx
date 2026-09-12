@@ -38,7 +38,7 @@ export default function LoginPage() {
     <main className="mx-auto max-w-md p-8 min-h-screen flex items-center justify-center flex-col">
       <Card className="w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-lg shadow-slate-200/60 dark:shadow-slate-950/30">
         <h1 className="mb-6 text-2xl font-bold tracking-tight text-foreground">
-          Logino
+          Login
         </h1>
 
         <form onSubmit={handleLogin} className="space-y-4">
