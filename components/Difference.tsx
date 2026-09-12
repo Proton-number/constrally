@@ -30,23 +30,29 @@ const difference: DIFFERENCE[] = [
 
 export default function Difference() {
   return (
-    <section className="px-6 py-24 bg-black text-white">
-      <div className="flex flex-col lg:flex-row">
+    <section className="bg-neutral-950 px-6 py-24 text-white">
+      <div className="mx-auto flex max-w-6xl flex-col lg:flex-row">
         <div className="flex flex-col lg:w-1/2 lg:pr-14">
-          <h3 className="font-serif text-3xl font-medium leading-tight tracking-tight md:text-5xl">
-            The Constrally Difference.
-          </h3>
+          <span className="mb-4 inline-block font-serif text-[10px] font-medium uppercase tracking-widest text-neutral-400">
+            Why Constrally
+          </span>
 
-          <p className="mt-6 max-w-xl text-sm leading-relaxed text-neutral-200 md:text-base">
+          <h2 className="font-serif text-3xl font-medium leading-tight tracking-tight text-white md:text-5xl">
+            The Constrally Difference.
+          </h2>
+
+          <Separator className="my-6 bg-white/20" />
+
+          <p className="max-w-xl font-serif text-base leading-relaxed text-neutral-300">
             In a market dominated by informal operators, we stand apart as a
             registered, trusted, and professional brand, deeply committed to
             delivering an exceptional experience for every client we serve.
           </p>
 
           <div className="mt-8 flex items-stretch gap-4">
-            <Separator orientation="vertical" className="bg-white/40" />
+            <Separator orientation="vertical" className="bg-white/30" />
 
-            <p className="max-w-lg text-base italic leading-relaxed text-neutral-200">
+            <p className="max-w-lg font-serif text-sm italic leading-relaxed text-neutral-300 md:text-base">
               “We see every client as a person with a dream, and we’re committed
               to helping make that dream a reality.”
             </p>
@@ -55,19 +61,21 @@ export default function Difference() {
 
         <Separator
           orientation="vertical"
-          className="mx-8 hidden bg-white/40 lg:block"
+          className="mx-8 hidden bg-white/20 lg:block"
         />
 
-        <Separator className="my-10 bg-white/40 lg:hidden" />
+        <Separator className="my-10 bg-white/20 lg:hidden" />
 
-        <div className="grid w-full gap-x-8 gap-y-10 sm:grid-cols-2 lg:w-1/2 lg:pl-6">
+        <div className="grid w-full gap-x-8 gap-y-12 sm:grid-cols-2 lg:w-1/2 lg:pl-6">
           {difference.map((diff) => (
-            <div key={diff.title}>
-              <h4 className="font-serif text-xl font-medium leading-tight">
+            <div key={diff.title} className="flex flex-col">
+              <h3 className="font-serif text-base font-medium uppercase tracking-wide text-white md:text-lg">
                 {diff.title}
-              </h4>
+              </h3>
 
-              <p className="mt-3 text-sm leading-relaxed text-neutral-300">
+              <Separator className="my-3 bg-white/20" />
+
+              <p className="font-serif text-sm leading-relaxed text-neutral-400">
                 {diff.description}
               </p>
             </div>

@@ -17,7 +17,7 @@ const steps: STEPS[] = [
     index: "02",
     title: "Goals",
     description:
-      "Our agent takes time to understand your investment goals, lifestyle needs, and timeline",
+      "Our agent takes time to understand your investment goals, lifestyle needs, and timeline.",
   },
   {
     index: "03",
@@ -29,7 +29,7 @@ const steps: STEPS[] = [
     index: "04",
     title: "Agreement and Deposit",
     description:
-      "A format Property Sale Agreement is prepared. Your 30% deposit secures the property immediately.",
+      "A formal Property Sale Agreement is prepared. Your 30% deposit secures the property immediately.",
   },
   {
     index: "05",
@@ -47,22 +47,32 @@ const steps: STEPS[] = [
 
 export default function Steps() {
   return (
-    <section className="px-6 py-24 bg-neutral-100 ">
+    <section className="bg-neutral-50 px-6 py-24">
       <div className="mx-auto max-w-6xl">
-        <h3 className="mx-auto max-w-xl text-center font-serif text-3xl font-medium leading-tight  tracking-tight text-neutral-900 md:text-5xl">
-          Simple steps to your dream property.
-        </h3>
-        <div className="mx-auto mt-16 grid max-w-6xl grid-cols-1 sm:grid-cols-2  md:grid-cols-3 md:gap-8 gap-x-7 gap-y-9">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="font-serif text-[10px] font-medium uppercase tracking-widest text-neutral-500">
+            Process
+          </span>
+
+          <h2 className="mt-3 font-serif text-3xl font-medium leading-tight tracking-tight text-neutral-900 md:text-5xl">
+            Simple steps to your dream property.
+          </h2>
+        </div>
+
+        <div className="mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 md:grid-cols-3">
           {steps.map((step) => (
-            <div key={step.index} className="text-left ">
-              <Separator className="bg-neutral-300 mb-4 " />
-              <h4 className="mb-2 text-[12px] font-semibold tracking-[0.12em] text-neutral-700">
-                {step.index}
-              </h4>
-              <p className="mb-2 uppercase font-serif text-xl font-medium text-neutral-900">
+            <div key={step.index} className="flex flex-col text-left">
+              <span className="font-serif text-xs uppercase tracking-wider text-neutral-400">
+                Step / {step.index}
+              </span>
+
+              <h3 className="mt-2 font-serif text-base font-medium uppercase tracking-wide text-neutral-900 md:text-lg">
                 {step.title}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-neutral-500">
+              </h3>
+
+              <Separator className="my-3 bg-neutral-300" />
+
+              <p className="font-serif text-sm leading-relaxed text-neutral-600">
                 {step.description}
               </p>
             </div>

@@ -1,12 +1,12 @@
 // middleware.ts
 import { NextResponse, type NextRequest } from "next/server";
-import { updateSession } from "@/lib/supabase/middleware";
+import { updateSession } from "@/lib/supabase/proxy";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { response, user } = await updateSession(request);
   const { pathname } = request.nextUrl;
 
-  // 1. Unauthenticated users trying to access protected admin routes
+  // Unauthenticated users trying to access protected admin routes
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
     if (!user) {
       const url = request.nextUrl.clone();
@@ -15,10 +15,10 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // 2. Authenticated users trying to access login page
+  //  Authenticated users trying to access login page
   if (pathname === "/admin/login" && user) {
     const url = request.nextUrl.clone();
-    url.pathname = "/admin/posts";
+    url.pathname = "/admin";
     return NextResponse.redirect(url);
   }
 

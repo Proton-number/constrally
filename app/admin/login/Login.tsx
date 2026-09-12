@@ -1,11 +1,12 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
 export default function LoginPage() {
   const router = useRouter();
   const supabase = createClient();
@@ -14,7 +15,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  async function handleLogin(event: FormEvent<HTMLFormElement>) {
+  async function handleLogin(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setError("");
@@ -30,7 +31,7 @@ export default function LoginPage() {
     }
 
     router.refresh();
-    router.push("/admin/posts");
+    router.push("/admin");
   }
 
   return (

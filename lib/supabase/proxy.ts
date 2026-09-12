@@ -1,4 +1,4 @@
-// lib/supabase/middleware.ts
+
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
@@ -9,7 +9,7 @@ export async function updateSession(request: NextRequest) {
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!, // Ensure this matches your env variable (anon key)
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!, 
     {
       cookies: {
         getAll() {
