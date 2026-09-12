@@ -42,18 +42,18 @@ export default function Faq() {
   return (
     <section id="faq" className="bg-neutral-100 px-6 py-24">
       <div className="mx-auto max-w-3xl">
-        <h2 className="mb-10 text-center font-serif text-3xl font-medium tracking-tight text-neutral-900 md:text-5xl">
+        <h2 className="mb-10 text-center font-serif text-3xl font-medium leading-tight tracking-tight text-neutral-900 md:text-5xl">
           Got questions?
         </h2>
 
-        <Accordion className="w-full border-0 font-serif">
+        <Accordion className="w-full border-0">
           {faqs.map((faq, index) => (
             <AccordionItem key={faq.question} value={`item-${index + 1}`}>
-              <AccordionTrigger className="mt-4 cursor-pointer text-left text-base font-medium hover:no-underline sm:text-lg">
+              <AccordionTrigger className="mt-4 cursor-pointer text-left font-serif text-base font-medium tracking-wide text-neutral-900 hover:no-underline sm:text-lg">
                 {faq.question}
               </AccordionTrigger>
 
-              <AccordionContent className="text-left text-base leading-7 text-neutral-600 sm:text-lg">
+              <AccordionContent className="text-left font-serif text-sm leading-relaxed text-neutral-600 sm:text-base">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

@@ -1,5 +1,14 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Admin",
+  description: "Admin dashboard for Constrally",
+  icons: {
+    icon: "/logo.jpeg",
+  },
+};
 
 export default async function AdminLayout({
   children,
@@ -16,12 +25,5 @@ export default async function AdminLayout({
     redirect("/admin/login");
   }
 
-  // Optional: Add admin role check here once your roles table exists
-
-  return (
-    <div className="admin-shell">
-      {/* Shared admin sidebar/nav can go here */}
-      <main>{children}</main>
-    </div>
-  );
+  return <div className="min-h-screen bg-background">{children}</div>;
 }
