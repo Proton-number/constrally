@@ -1,14 +1,15 @@
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {
-//   output: "standalone", // Enforces the standalone build we set up in the last step
-// };
-
-// module.exports = nextConfig;
-
-
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
-  // Clear any structural properties here so it runs as a standard production build
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "nzvyjnmmwwbuhyeocyia.supabase.co",
+        pathname: "/storage/v1/object/public/property-images/**",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

@@ -30,7 +30,7 @@ export default function Hero() {
         </p>
 
         <div className="mt-8 flex w-full flex-col gap-3 sm:mt-9 sm:w-auto sm:flex-row">
-          <Link href="/#properties" className="w-full sm:w-auto">
+          <Link href="/#contact" className="w-full sm:w-auto">
             <Button className="h-12 w-full rounded-sm bg-white px-7 font-serif text-xs font-semibold uppercase tracking-wider text-neutral-900 hover:bg-neutral-200 sm:w-auto">
               Enquire now
             </Button>

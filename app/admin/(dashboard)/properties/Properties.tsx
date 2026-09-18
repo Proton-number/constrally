@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { Separator } from "@/components/ui/separator";
 import { MapPin } from "lucide-react";
+import Image from "next/image";
 
 interface PropertyImage {
   id: string;
@@ -131,6 +132,7 @@ export default function Properties() {
             const sortedImages = property.property_images?.sort(
               (a, b) => a.display_order - b.display_order,
             );
+            
             const coverImage = sortedImages?.[0]?.image_url;
 
             return (
@@ -138,12 +140,13 @@ export default function Properties() {
                 key={property.id}
                 className="flex flex-col border border-neutral-200 bg-white"
               >
-                {/* Fixed height image shell with absolute cover to lock aspect ratios */}
-                <div className="relative h-56 w-full overflow-hidden bg-neutral-100">
+                <div className="relative h-72 w-full overflow-hidden bg-neutral-100 md:h-80">
                   {coverImage ? (
-                    <img
+                    <Image
                       src={coverImage}
                       alt={property.title}
+                      width={1200}
+                      height={800}
                       className="absolute inset-0 h-full w-full object-cover object-center transition duration-300 hover:scale-105"
                     />
                   ) : (

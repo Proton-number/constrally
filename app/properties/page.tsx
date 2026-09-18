@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { createClient } from "@/lib/supabase/server";
+import Image from "next/image";
 
 interface PropertyImage {
   id: string;
@@ -81,11 +82,14 @@ export default async function PublicPropertiesPage() {
                   href={`/properties/${item.id}`}
                   className="group block"
                 >
-                  <div className="aspect-video w-full overflow-hidden bg-neutral-100 relative">
+                  <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
                     {coverImage ? (
-                      <img
+                      <Image
                         src={coverImage}
                         alt={item.title}
+                        width={1200}
+                        height={900}
+                        sizes="(max-width: 768px) 100vw, 33vw"
                         className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                       />
                     ) : (

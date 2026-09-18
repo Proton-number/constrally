@@ -37,10 +37,6 @@ export default function Testimonials() {
   return (
     <section className="px-6 py-24">
       <div className="mx-auto max-w-3xl text-center">
-        <span className="font-serif text-[10px] font-medium uppercase tracking-widest text-neutral-500">
-          Client Experiences
-        </span>
-
         <h2 className="mt-3 font-serif text-3xl font-medium leading-tight tracking-tight text-neutral-900 md:text-5xl">
           What our clients say.
         </h2>

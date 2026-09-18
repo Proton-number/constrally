@@ -2,6 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
+import Image from "next/image";
 
 interface PropertyImage {
   id: string;
@@ -69,12 +70,14 @@ export default async function Collection() {
                 className="group block"
               >
                 <div key={item.id}>
-                  <div className="aspect-video w-full overflow-hidden bg-neutral-100">
+                  <div className="relative h-65 w-full overflow-hidden bg-neutral-100 sm:h-72.5 md:h-80">
                     {coverImage ? (
-                      <img
+                      <Image
                         src={coverImage}
                         alt={item.title}
-                        className="h-full w-full object-cover transition duration-300 hover:scale-105"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover transition duration-300 hover:scale-105"
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center text-xs text-neutral-400">
@@ -93,7 +96,7 @@ export default async function Collection() {
                       {item.location}
                     </p>
                     <p className="mt-2 text-sm leading-relaxed text-neutral-500">
-                      ${item.price.toLocaleString()}
+                      ₦{item.price.toLocaleString()}
                     </p>
                   </div>
                 </div>

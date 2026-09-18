@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 interface PropertyImage {
   id: string;
@@ -50,12 +51,14 @@ export default function PropertyGallery({
 
   return (
     <div className="mb-14">
-      {/* Active Featured Image Window */}
       <div className="relative aspect-video w-full overflow-hidden bg-neutral-100">
-        <img
+        <Image
           src={currentImage}
           alt={`${title} - image ${selectedIndex + 1}`}
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
+          fill
+          sizes="(max-width: 768px) 100vw, 70vw"
+          quality={85}
+          className="object-cover"
         />
 
         {images.length > 1 && (
@@ -68,6 +71,7 @@ export default function PropertyGallery({
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
+
             <button
               type="button"
               onClick={handleNext}
@@ -76,6 +80,7 @@ export default function PropertyGallery({
             >
               <ChevronRight className="h-5 w-5" />
             </button>
+
             <span className="absolute bottom-3 right-3 bg-neutral-950/75 px-2.5 py-1 font-serif text-[10px] uppercase tracking-widest text-white">
               {selectedIndex + 1} / {images.length}
             </span>
@@ -83,6 +88,7 @@ export default function PropertyGallery({
         )}
       </div>
 
+      {/* Thumbnails */}
       {images.length > 1 && (
         <div className="mt-4 flex gap-3 overflow-x-auto pb-2 scrollbar-thin">
           {images.map((img, idx) => (
@@ -96,10 +102,13 @@ export default function PropertyGallery({
                   : "border-transparent opacity-50 hover:opacity-100"
               }`}
             >
-              <img
+              <Image
                 src={img.image_url}
                 alt={`${title} thumbnail ${idx + 1}`}
-                className="h-full w-full object-cover"
+                fill
+                sizes="128px"
+                quality={70}
+                className="object-cover"
               />
             </button>
           ))}

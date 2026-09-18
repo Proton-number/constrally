@@ -131,7 +131,6 @@ export default async function PropertyDetailPage({
 
         <Separator className="mb-8 bg-neutral-900" />
 
-        {/* Interactive Rotating Carousel Gallery */}
         <PropertyGallery images={sortedImages} title={property.title} />
 
         {/* Content Layout Grid */}

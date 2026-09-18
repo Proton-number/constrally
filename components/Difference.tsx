@@ -33,10 +33,6 @@ export default function Difference() {
     <section className="bg-neutral-950 px-6 py-24 text-white">
       <div className="mx-auto flex max-w-6xl flex-col lg:flex-row">
         <div className="flex flex-col lg:w-1/2 lg:pr-14">
-          <span className="mb-4 inline-block font-serif text-[10px] font-medium uppercase tracking-widest text-neutral-400">
-            Why Constrally
-          </span>
-
           <h2 className="font-serif text-3xl font-medium leading-tight tracking-tight text-white md:text-5xl">
             The Constrally Difference.
           </h2>
