@@ -19,13 +19,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://constrally.com"),
+
   title: "Constrally",
   description: "Constrally - modern construction solutions and services",
+
   icons: {
     icon: "/logo.jpeg",
     shortcut: "/logo.jpeg",
     apple: "/logo.jpeg",
   },
+
   openGraph: {
     title: "Constrally",
     description: "Constrally - modern construction solutions and services",
@@ -39,6 +43,7 @@ export const metadata: Metadata = {
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
     title: "Constrally",
@@ -62,7 +67,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <Nav />
-        <Analytics />
+        {/* <Analytics /> */}
         {children}
         <Footer />
       </body>

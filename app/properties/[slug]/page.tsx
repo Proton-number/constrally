@@ -1,62 +1,71 @@
-import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MapPin, ArrowLeft, Phone, ShieldCheck, Check } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { createClient } from "@/lib/supabase/server";
 import PropertyGallery from "@/components/PropertyGallery";
-
-interface PropertyImage {
-  id: string;
-  image_url: string;
-  display_order: number;
-}
+import NotFound from "@/app/not-found";
 
 function parsePropertyDescription(raw: string | null) {
+  const defaultPhone = "0912 639 3650";
+
   if (!raw) {
     return {
       overview: "",
-      features: [] as string[],
+      features: [],
       titleDoc: "",
-      phone: "0912 639 3650",
+      phone: defaultPhone,
     };
   }
 
   const sections = raw.split("\n\n");
+
   let overview = "";
   const features: string[] = [];
   let titleDoc = "";
-  let phone = "0912 639 3650";
+  let phone = defaultPhone;
 
-  for (const block of sections) {
-    const trimmed = block.trim();
+  for (const section of sections) {
+    const trimmed = section.trim();
+
     if (trimmed.startsWith("PROPERTY FEATURES")) {
       const lines = trimmed.split("\n").slice(1);
-      lines.forEach((line) => {
-        const cleaned = line.replace(/^[•\-\*]\s*/, "").trim();
-        if (cleaned) features.push(cleaned);
-      });
-    } else if (
-      trimmed.startsWith("📑 TITLE:") ||
-      trimmed.startsWith("TITLE:")
-    ) {
-      titleDoc = trimmed.replace(/^📑?\s*TITLE:\s*/i, "").trim();
+
+      for (const line of lines) {
+        const cleaned = line.replace(/^[•*-]\s*/, "").trim();
+
+        if (cleaned) {
+          features.push(cleaned);
+        }
+      }
+    } else if (trimmed.startsWith("TITLE:")) {
+      titleDoc = trimmed.replace(/^TITLE:\s*/i, "").trim();
     } else if (trimmed.includes("call or WhatsApp us today:")) {
       const parts = trimmed.split("call or WhatsApp us today:");
-      if (parts[1]) phone = parts[1].trim();
+
+      if (parts[1]) {
+        phone = parts[1].trim();
+      }
     } else if (!overview) {
       overview = trimmed;
     }
   }
 
-  return { overview, features, titleDoc, phone };
+  return {
+    overview,
+    features,
+    titleDoc,
+    phone,
+  };
 }
 
 export default async function PropertyDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
+  const { slug } = await params;
+  const decodedSlug = decodeURIComponent(slug);
+
   const supabase = await createClient();
 
   const { data: property, error } = await supabase
@@ -64,6 +73,7 @@ export default async function PropertyDetailPage({
     .select(
       `
       id,
+      slug,
       title,
       description,
       location,
@@ -76,11 +86,11 @@ export default async function PropertyDetailPage({
       )
     `,
     )
-    .eq("id", id)
+    .eq("slug", decodedSlug)
     .single();
 
   if (error || !property) {
-    notFound();
+    return <NotFound />;
   }
 
   const sortedImages = (property.property_images || []).sort(
@@ -104,7 +114,6 @@ export default async function PropertyDetailPage({
           Back to all properties
         </Link>
 
-        {/* Header Title & Pricing Block */}
         <div className="mb-6 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
             <span className="font-serif text-[10px] font-medium uppercase tracking-widest text-neutral-400">
@@ -132,8 +141,6 @@ export default async function PropertyDetailPage({
         <Separator className="mb-8 bg-neutral-900" />
 
         <PropertyGallery images={sortedImages} title={property.title} />
-
-        {/* Content Layout Grid */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-16">
           <div className="space-y-12 lg:col-span-2">
             <div>

@@ -12,7 +12,9 @@ interface PropertyImage {
 
 interface Property {
   id: string;
+  slug: string;
   title: string;
+  is_sold: boolean;
   location: string;
   price: number;
   property_images: PropertyImage[];
@@ -26,6 +28,8 @@ export default async function PublicPropertiesPage() {
     .select(
       `
       id,
+      slug,
+      is_sold,
       title,
       location,
       price,
@@ -36,6 +40,7 @@ export default async function PublicPropertiesPage() {
       )
     `,
     )
+    .order("is_sold", { ascending: true })
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -79,7 +84,7 @@ export default async function PublicPropertiesPage() {
               return (
                 <Link
                   key={item.id}
-                  href={`/properties/${item.id}`}
+                  href={`/properties/${item.slug}`}
                   className="group block"
                 >
                   <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
@@ -90,12 +95,19 @@ export default async function PublicPropertiesPage() {
                         width={1200}
                         height={900}
                         sizes="(max-width: 768px) 100vw, 33vw"
-                        className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                        className={`h-full w-full object-cover transition duration-300 group-hover:scale-105 ${
+                          item.is_sold ? "opacity-60 grayscale" : ""
+                        }`}
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center text-xs text-neutral-400">
                         No image
                       </div>
+                    )}
+                    {item.is_sold && (
+                      <span className="absolute left-3 top-3 bg-red-600 px-3 py-1 font-serif text-[11px] font-medium uppercase tracking-wider text-white">
+                        Sold
+                      </span>
                     )}
                   </div>
 
@@ -110,7 +122,11 @@ export default async function PublicPropertiesPage() {
                       <MapPin className="mr-1 inline h-4 w-4" />
                       {item.location}
                     </p>
-                    <p className="text-sm leading-relaxed text-neutral-500 font-medium">
+                    <p
+                      className={`text-sm font-medium leading-relaxed text-neutral-500 ${
+                        item.is_sold ? "line-through" : ""
+                      }`}
+                    >
                       ${item.price.toLocaleString()}
                     </p>
                   </div>

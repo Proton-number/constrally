@@ -6,13 +6,15 @@ import { Separator } from "@/components/ui/separator";
 export default function Hero() {
   return (
     <section className="relative isolate flex min-h-screen items-center overflow-hidden sm:min-h-[92vh]">
-      <Image
-        src="/hero.png"
-        alt=""
-        fill
-        priority
-        className="-z-10 object-cover"
-      />
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/hero.png"
+          alt="Lagos real estate"
+          fill
+          priority
+          className="object-cover"
+        />
+      </div>
 
       <div className="absolute inset-0 -z-10 bg-linear-to-t from-neutral-950/95 via-neutral-900/60 to-neutral-900/30" />
 

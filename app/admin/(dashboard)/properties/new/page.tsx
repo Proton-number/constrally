@@ -5,6 +5,20 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Separator } from "@/components/ui/separator";
 
+// Helper function to turn a string into a clean, unique URL slug
+function generateSlug(text: string): string {
+  const baseSlug = text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "") // remove non-alphanumeric chars (keeps dashes/spaces)
+    .replace(/[\s_-]+/g, "-") // collapse whitespace and underscores into single '-'
+    .replace(/^-+|-+$/g, ""); // trim leading/trailing dashes
+
+  // Add a 4-character random suffix to prevent collisions on duplicate titles
+  const uniqueSuffix = Math.random().toString(36).substring(2, 6);
+  return `${baseSlug}-${uniqueSuffix}`;
+}
+
 export default function NewPropertyPage() {
   const router = useRouter();
   const supabase = createClient();
@@ -41,6 +55,9 @@ export default function NewPropertyPage() {
     setLoading(true);
     setError(null);
 
+    // Generate slug from the user's title
+    const generatedSlug = generateSlug(title);
+
     // Format features lines into clean bullet points
     const formattedFeatures = features
       .split("\n")
@@ -62,11 +79,12 @@ export default function NewPropertyPage() {
       .join("\n\n");
 
     try {
-      // 1. Insert property row
+      // 1. Insert property row with generated slug
       const { data: property, error: propError } = await supabase
         .from("properties")
         .insert({
           title: title.trim(),
+          slug: generatedSlug, // Saves the generated slug
           description: compiledDescription,
           location: location.trim(),
           price: Number(price),
@@ -158,8 +176,18 @@ export default function NewPropertyPage() {
                 required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                placeholder="e.g. 5 Bedroom Fully Detached Duplex"
                 className="mt-2 h-11 w-full border border-neutral-300 px-3 font-serif text-sm text-neutral-900 focus:border-neutral-900 focus:outline-none"
               />
+              {title && (
+                <p className="mt-1 font-mono text-[11px] text-neutral-400 truncate">
+                  Slug preview: /properties/
+                  {title
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/^-|-$/g, "")}
+                </p>
+              )}
             </div>
 
             <div>

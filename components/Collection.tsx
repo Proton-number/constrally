@@ -12,7 +12,9 @@ interface PropertyImage {
 
 interface Property {
   id: string;
+  slug: string;
   title: string;
+  is_sold: boolean;
   location: string;
   price: number;
   property_images: PropertyImage[];
@@ -21,11 +23,13 @@ interface Property {
 export default async function Collection() {
   const supabase = await createClient();
 
-  const { data: properties } = await supabase
+  const { data: properties, error } = await supabase
     .from("properties")
     .select(
       `
       id,
+      slug,
+      is_sold,
       title,
       location,
       price,
@@ -38,6 +42,16 @@ export default async function Collection() {
     )
     .order("created_at", { ascending: false })
     .limit(3);
+
+  if (error) {
+    return (
+      <section className="px-6 py-24">
+        <div className="mx-auto max-w-6xl text-red-600 font-serif">
+          Failed to load listings.
+        </div>
+      </section>
+    );
+  }
 
   const collections: Property[] = properties || [];
 
@@ -66,7 +80,7 @@ export default async function Collection() {
             return (
               <Link
                 key={item.id}
-                href={`/properties/${item.id}`}
+                href={`/properties/${item.slug}`}
                 className="group block"
               >
                 <div key={item.id}>
@@ -77,12 +91,17 @@ export default async function Collection() {
                         alt={item.title}
                         fill
                         sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover transition duration-300 hover:scale-105"
+                        className={`object-cover transition duration-300 hover:scale-105 ${item.is_sold ? "opacity-60 grayscale" : ""}`}
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center text-xs text-neutral-400">
                         No image
                       </div>
+                    )}
+                    {item.is_sold && (
+                      <span className="absolute left-3 top-3 bg-red-600 px-3 py-1 font-serif text-[11px] font-medium uppercase tracking-wider text-white">
+                        Sold
+                      </span>
                     )}
                   </div>
 

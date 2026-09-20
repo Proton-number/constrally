@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-
+import { MoveRight } from "lucide-react";
 export default async function AdminPage() {
   const supabase = await createClient();
 
@@ -28,8 +28,8 @@ export default async function AdminPage() {
               View, edit and delete your property listings.
             </p>
 
-            <span className="mt-6 inline-block text-sm font-medium">
-              Manage Properties →
+            <span className="mt-6 flex gap-2 items-center text-sm font-medium">
+              Manage Properties <MoveRight className="opacity-70 w-4 h-4" />
             </span>
           </Link>
 
@@ -43,8 +43,8 @@ export default async function AdminPage() {
               Create a new property listing.
             </p>
 
-            <span className="mt-6 inline-block text-sm font-medium">
-              Add Property →
+            <span className="mt-6 flex gap-2 items-center text-sm font-medium">
+              Add Property <MoveRight className="opacity-70 w-4 h-4" />
             </span>
           </Link>
         </div>
