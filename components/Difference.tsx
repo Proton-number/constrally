@@ -30,7 +30,7 @@ const difference: DIFFERENCE[] = [
 
 export default function Difference() {
   return (
-    <section className="bg-neutral-950 px-6 py-24 text-white">
+    <section className="bg-[#091e3c] px-6 py-24 text-white">
       <div className="mx-auto flex max-w-6xl flex-col lg:flex-row">
         <div className="flex flex-col lg:w-1/2 lg:pr-14">
           <h2 className="font-serif text-3xl font-medium leading-tight tracking-tight text-white md:text-5xl">

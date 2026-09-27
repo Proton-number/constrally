@@ -4,17 +4,18 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Separator } from "@/components/ui/separator";
+import { toast } from "@/components/ui/toast";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
-// Helper function to turn a string into a clean, unique URL slug
 function generateSlug(text: string): string {
   const baseSlug = text
     .toLowerCase()
     .trim()
-    .replace(/[^\w\s-]/g, "") // remove non-alphanumeric chars (keeps dashes/spaces)
-    .replace(/[\s_-]+/g, "-") // collapse whitespace and underscores into single '-'
-    .replace(/^-+|-+$/g, ""); // trim leading/trailing dashes
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 
-  // Add a 4-character random suffix to prevent collisions on duplicate titles
   const uniqueSuffix = Math.random().toString(36).substring(2, 6);
   return `${baseSlug}-${uniqueSuffix}`;
 }
@@ -36,13 +37,40 @@ export default function NewPropertyPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const MAX_IMAGES = 6;
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const selectedFiles = Array.from(e.target.files);
 
+    const remainingSlots = MAX_IMAGES - files.length;
+
+    if (remainingSlots < 0) {
+      toast.add({
+        type: "error",
+        description: `You can only upload up to ${MAX_IMAGES} images.`,
+        priority: "high",
+      });
+      e.target.value = "";
+      return;
+    }
+
+    const filesToAdd = selectedFiles.slice(0, remainingSlots);
+
+    if (selectedFiles.length > remainingSlots) {
+      toast.add({
+        type: "error",
+        description: `Only ${remainingSlots} more image${
+          remainingSlots === 1 ? "" : "s"
+        } can be added (max ${MAX_IMAGES}).`,
+        priority: "high",
+      });
+    }
+
     setFiles((prev) => [...prev, ...selectedFiles]);
-    const newPreviews = selectedFiles.map((file) => URL.createObjectURL(file));
+    const newPreviews = filesToAdd.map((file) => URL.createObjectURL(file));
     setPreviews((prev) => [...prev, ...newPreviews]);
+    e.target.value = "";
   };
 
   const removeImage = (index: number) => {
@@ -55,10 +83,8 @@ export default function NewPropertyPage() {
     setLoading(true);
     setError(null);
 
-    // Generate slug from the user's title
     const generatedSlug = generateSlug(title);
 
-    // Format features lines into clean bullet points
     const formattedFeatures = features
       .split("\n")
       .map((line) => line.trim())
@@ -66,7 +92,6 @@ export default function NewPropertyPage() {
       .map((line) => (line.startsWith("•") ? line : `• ${line}`))
       .join("\n");
 
-    // Construct the structured description block matching your listing format
     const compiledDescription = [
       overview.trim(),
       formattedFeatures ? `PROPERTY FEATURES\n${formattedFeatures}` : "",
@@ -79,12 +104,11 @@ export default function NewPropertyPage() {
       .join("\n\n");
 
     try {
-      // 1. Insert property row with generated slug
       const { data: property, error: propError } = await supabase
         .from("properties")
         .insert({
           title: title.trim(),
-          slug: generatedSlug, // Saves the generated slug
+          slug: generatedSlug,
           description: compiledDescription,
           location: location.trim(),
           price: Number(price),
@@ -96,7 +120,6 @@ export default function NewPropertyPage() {
         throw new Error(propError?.message || "Failed to create property.");
       }
 
-      // 2. Upload images to Supabase storage bucket
       const imageRecords = [];
 
       for (let i = 0; i < files.length; i++) {
@@ -125,7 +148,6 @@ export default function NewPropertyPage() {
         });
       }
 
-      // 3. Save images in property_images table
       if (imageRecords.length > 0) {
         const { error: imgInsertError } = await supabase
           .from("property_images")
@@ -139,9 +161,18 @@ export default function NewPropertyPage() {
       router.push("/admin/properties");
       router.refresh();
     } catch (err: any) {
+      toast.add({
+        type: "error",
+        description: err.message || "An unexpected error occurred.",
+        priority: "high",
+      });
       setError(err.message || "An unexpected error occurred.");
     } finally {
       setLoading(false);
+      toast.add({
+        type: "success",
+        description: "Property listing created successfully!",
+      });
     }
   };
 
@@ -165,13 +196,12 @@ export default function NewPropertyPage() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-8">
-          {/* Header Specs */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
               <label className="block font-serif text-xs uppercase tracking-wider text-neutral-700">
                 Headline / Title
               </label>
-              <input
+              <Input
                 type="text"
                 required
                 value={title}
@@ -194,7 +224,7 @@ export default function NewPropertyPage() {
               <label className="block font-serif text-xs uppercase tracking-wider text-neutral-700">
                 Location
               </label>
-              <input
+              <Input
                 type="text"
                 required
                 value={location}
@@ -204,7 +234,6 @@ export default function NewPropertyPage() {
             </div>
           </div>
 
-          {/* Intro description */}
           <div>
             <label className="block font-serif text-xs uppercase tracking-wider text-neutral-700">
               Overview Summary
@@ -217,7 +246,6 @@ export default function NewPropertyPage() {
             />
           </div>
 
-          {/* Features list */}
           <div>
             <div className="flex items-center justify-between">
               <label className="block font-serif text-xs uppercase tracking-wider text-neutral-700">
@@ -235,13 +263,12 @@ export default function NewPropertyPage() {
             />
           </div>
 
-          {/* Legal Document, Pricing & Contact */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             <div>
               <label className="block font-serif text-xs uppercase tracking-wider text-neutral-700">
                 Title Document
               </label>
-              <input
+              <Input
                 type="text"
                 value={titleDoc}
                 onChange={(e) => setTitleDoc(e.target.value)}
@@ -253,7 +280,7 @@ export default function NewPropertyPage() {
               <label className="block font-serif text-xs uppercase tracking-wider text-neutral-700">
                 Price (₦ Figures Only)
               </label>
-              <input
+              <Input
                 type="number"
                 required
                 value={price}
@@ -266,7 +293,7 @@ export default function NewPropertyPage() {
               <label className="block font-serif text-xs uppercase tracking-wider text-neutral-700">
                 Contact Phone
               </label>
-              <input
+              <Input
                 type="text"
                 value={contactPhone}
                 onChange={(e) => setContactPhone(e.target.value)}
@@ -275,17 +302,20 @@ export default function NewPropertyPage() {
             </div>
           </div>
 
-          {/* Uploads */}
           <div>
             <label className="block font-serif text-xs uppercase tracking-wider text-neutral-700">
               Gallery Media
             </label>
+            <span className="font-serif text-[11px] text-neutral-400">
+              {Math.min(files.length, MAX_IMAGES)}/{MAX_IMAGES} images selected
+            </span>
             <input
               type="file"
               accept="image/*"
               multiple
               onChange={handleImageChange}
-              className="mt-2 block w-full font-serif text-xs text-neutral-500 file:mr-4 file:border-0 file:bg-neutral-900 file:px-4 file:py-2 file:font-serif file:text-xs file:uppercase file:tracking-wider file:text-white hover:file:bg-neutral-800"
+              disabled={files.length >= MAX_IMAGES}
+              className="mt-2 block w-full font-serif text-xs text-neutral-500 file:mr-4 file:border-0 file:bg-[#091e3c] file:px-4 file:py-2 file:font-serif file:text-xs file:uppercase file:tracking-wider file:text-white hover:file:bg-[#163b68]"
             />
 
             {previews.length > 0 && (
@@ -300,13 +330,13 @@ export default function NewPropertyPage() {
                       alt={`Preview ${idx + 1}`}
                       className="h-full w-full object-cover"
                     />
-                    <button
+                    <Button
                       type="button"
                       onClick={() => removeImage(idx)}
                       className="absolute top-1 right-1 bg-neutral-900 p-1 font-serif text-[10px] text-white transition hover:bg-neutral-700"
                     >
                       ✕
-                    </button>
+                    </Button>
                   </div>
                 ))}
               </div>
@@ -315,13 +345,13 @@ export default function NewPropertyPage() {
 
           <Separator className="bg-neutral-200" />
 
-          <button
+          <Button
             type="submit"
             disabled={loading}
-            className="h-12 px-8 bg-neutral-900 font-serif text-xs font-semibold uppercase tracking-wider text-white transition hover:bg-neutral-800 disabled:bg-neutral-400"
+            className="h-12 px-8 bg-[#091e3c] font-serif text-xs font-semibold uppercase tracking-wider text-white transition hover:bg-[#163b68] disabled:bg-neutral-400 rounded-non cursor-pointer"
           >
             {loading ? "Publishing listing..." : "Publish Property Listing"}
-          </button>
+          </Button>
         </form>
       </div>
     </section>

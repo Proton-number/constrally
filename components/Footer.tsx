@@ -3,7 +3,7 @@ import { getYear } from "date-fns";
 
 export default function Footer() {
   return (
-    <footer className="bg-black px-6 py-16 text-white sm:py-20 lg:py-12">
+    <footer className="bg-[#091e3c] px-6 py-16 text-white sm:py-20 lg:py-12">
       <div className="mx-auto max-w-6xl">
         <Separator className="bg-white/15" />
 

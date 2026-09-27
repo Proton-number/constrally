@@ -5,7 +5,10 @@ import { Separator } from "@/components/ui/separator";
 
 export default function Hero() {
   return (
-    <section className="relative isolate flex min-h-screen items-center overflow-hidden sm:min-h-[92vh]">
+    <section
+      id="home"
+      className="relative isolate flex min-h-screen items-center overflow-hidden sm:min-h-[92vh]"
+    >
       <div className="absolute inset-0 -z-10">
         <Image
           src="/hero.png"
@@ -33,7 +36,7 @@ export default function Hero() {
 
         <div className="mt-8 flex w-full flex-col gap-3 sm:mt-9 sm:w-auto sm:flex-row">
           <Link href="/#contact" className="w-full sm:w-auto">
-            <Button className="h-12 w-full rounded-sm bg-white px-7 font-serif text-xs font-semibold uppercase tracking-wider text-neutral-900 hover:bg-neutral-200 sm:w-auto">
+            <Button className="h-12 w-full rounded-sm border border-white/40 bg-white/90 px-7 font-serif text-xs font-semibold uppercase tracking-wider text-neutral-950 backdrop-blur-sm transition-colors duration-300 hover:bg-white sm:w-auto">
               Enquire now
             </Button>
           </Link>

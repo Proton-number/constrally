@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
+import { Toaster } from "@/components/ui/toast";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -67,8 +69,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <Nav />
-        {/* <Analytics /> */}
+        <SpeedInsights />
+        <Analytics />
         {children}
+        <Toaster />
         <Footer />
       </body>
     </html>

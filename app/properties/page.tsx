@@ -127,7 +127,7 @@ export default async function PublicPropertiesPage() {
                         item.is_sold ? "line-through" : ""
                       }`}
                     >
-                      ${item.price.toLocaleString()}
+                      ₦{item.price.toLocaleString()}
                     </p>
                   </div>
                 </Link>

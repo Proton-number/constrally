@@ -211,7 +211,7 @@ export default async function PropertyDetailPage({
                   href={`https://wa.me/${cleanPhoneNumber.replace("+", "")}?text=Hello%2C%20I%20am%20interested%20in%20${encodeURIComponent(property.title)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex h-11 w-full items-center justify-center bg-neutral-900 font-serif text-xs font-semibold uppercase tracking-wider text-white transition hover:bg-neutral-800"
+                  className="flex h-11 w-full items-center justify-center bg-[#091e3c] font-serif text-xs font-semibold uppercase tracking-wider text-white transition hover:bg-neutral-800"
                 >
                   WhatsApp Enquiry
                 </a>

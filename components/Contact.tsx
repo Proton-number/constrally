@@ -1,11 +1,58 @@
+"use client";
+
 import { Card } from "./ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "./ui/button";
 import { Separator } from "@/components/ui/separator";
-
+import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { toast } from "./ui/toast";
 export default function Contact() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const submitForm = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          firstName,
+          lastName,
+          phoneNumber,
+          email,
+          message,
+        },
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! },
+      );
+
+      setFirstName("");
+      setLastName("");
+      setPhoneNumber("");
+      setEmail("");
+      setMessage("");
+    } catch (error) {
+      toast.add({
+        type: "error",
+        description: "Failed to send message. Please try again.",
+        priority: "high",
+      });
+    } finally {
+      setIsSubmitting(false);
+      toast.add({
+        type: "success",
+        description: "Message sent! We'll get back to you shortly.",
+      });
+    }
+  };
   return (
     <section
       id="contact"
@@ -62,7 +109,7 @@ export default function Contact() {
 
           <Separator className="my-6 bg-neutral-300" />
 
-          <form className="flex flex-col gap-6">
+          <form className="flex flex-col gap-6" onSubmit={submitForm}>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label
@@ -72,6 +119,9 @@ export default function Contact() {
                   First Name
                 </Label>
                 <Input
+                  required
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   placeholder="John"
                   type="text"
                   id="first-name"
@@ -87,6 +137,9 @@ export default function Contact() {
                   Last Name
                 </Label>
                 <Input
+                  required
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   placeholder="Doe"
                   type="text"
                   id="last-name"
@@ -102,6 +155,9 @@ export default function Contact() {
                   Phone Number
                 </Label>
                 <Input
+                  required
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
                   placeholder="+234"
                   type="tel"
                   id="phone"
@@ -117,6 +173,9 @@ export default function Contact() {
                   Email Address
                 </Label>
                 <Input
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="john@example.com"
                   type="email"
                   id="email"
@@ -133,6 +192,8 @@ export default function Contact() {
                 Message
               </Label>
               <Textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 placeholder="How can we help you?"
                 name="message"
                 id="message"
@@ -143,9 +204,10 @@ export default function Contact() {
 
             <Button
               type="submit"
-              className="h-12 w-full rounded-none bg-neutral-900 font-serif text-xs font-semibold uppercase tracking-wider text-white hover:bg-neutral-800"
+              disabled={isSubmitting}
+              className="h-12 w-full rounded-none bg-[#091e3c] font-serif text-xs font-semibold uppercase tracking-wider text-white hover:bg-[#071832]"
             >
-              Send Enquiry Now
+              {isSubmitting ? "Sending..." : "Send Enquiry Now"}
             </Button>
           </form>
         </Card>

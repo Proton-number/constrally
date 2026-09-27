@@ -59,7 +59,7 @@ export default function Nav() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link
           onClick={() => setActiveHash("")}
-          href="/"
+          href="/#home"
           className="flex items-center gap-3"
         >
           <Image
@@ -68,7 +68,7 @@ export default function Nav() {
             width={40}
             height={40}
             priority
-            className="h-8 w-8 object-contain"
+            className="h-8 w-8 object-contain shadow-sm"
           />
           <span className="font-serif text-2xl font-medium tracking-tight text-neutral-900">
             Constrally
