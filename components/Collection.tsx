@@ -1,8 +1,8 @@
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
-import { MapPin } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-import Image from "next/image";
+import Reveal, { DrawLine } from "@/components/Reveal";
+import PropertyCard from "@/components/PropertyCard";
 
 interface PropertyImage {
   id: string;
@@ -58,68 +58,39 @@ export default async function Collection() {
   return (
     <section id="properties" className="px-6 py-24">
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-0">
-          <h3 className="text-left sm:text-center font-serif text-3xl font-medium leading-tight tracking-tight text-neutral-900 md:text-5xl">
+        <Reveal className="mb-8 flex flex-col items-start justify-between sm:mb-0 sm:flex-row sm:items-center">
+          <h3 className="text-left font-serif text-3xl font-medium leading-tight tracking-tight text-neutral-900 sm:text-center md:text-5xl">
             Curated Collection
           </h3>
           <Link
             href="/properties"
-            className="inline-block border-b-2 border-black/50 text-sm font-serif font-medium uppercase text-neutral-500 hover:text-neutral-900 mt-4"
+            className="mt-4 inline-block border-b-2 border-black/50 font-serif text-sm font-medium uppercase text-neutral-500 hover:text-neutral-900"
           >
             View All Properties
           </Link>
-        </div>
-        <Separator className="bg-neutral-900 mt-2" />
-        <div className="mx-auto mt-16 grid max-w-6xl grid-cols-1 md:grid-cols-3 md:gap-8 gap-x-7 gap-y-9">
-          {collections.map((item) => {
-            const sortedImages = item.property_images?.sort(
+        </Reveal>
+
+        <DrawLine className="mt-2">
+          <Separator className="bg-neutral-900" />
+        </DrawLine>
+
+        <div className="mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-x-7 gap-y-9 md:grid-cols-3 md:gap-8">
+          {collections.map((item, i) => {
+            const cover = [...(item.property_images ?? [])].sort(
               (a, b) => a.display_order - b.display_order,
-            );
-            const coverImage = sortedImages?.[0]?.image_url;
+            )[0]?.image_url;
 
             return (
-              <Link
+              <PropertyCard
                 key={item.id}
-                href={`/properties/${item.slug}`}
-                className="group block"
-              >
-                <div key={item.id}>
-                  <div className="relative h-65 w-full overflow-hidden bg-neutral-100 sm:h-72.5 md:h-80">
-                    {coverImage ? (
-                      <Image
-                        src={coverImage}
-                        alt={item.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className={`object-cover transition duration-300 hover:scale-105 ${item.is_sold ? "opacity-60 grayscale" : ""}`}
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center text-xs text-neutral-400">
-                        No image
-                      </div>
-                    )}
-                    {item.is_sold && (
-                      <span className="absolute left-3 top-3 bg-red-600 px-3 py-1 font-serif text-[11px] font-medium uppercase tracking-wider text-white">
-                        Sold
-                      </span>
-                    )}
-                  </div>
-
-                  <p className="mb-2 mt-3 font-serif text-base font-medium uppercase tracking-wide text-neutral-900 md:text-lg">
-                    {item.title}
-                  </p>
-                  <Separator className="bg-neutral-400" />
-                  <div className="mt-2 flex items-center justify-between">
-                    <p className="mt-2 text-sm leading-relaxed text-neutral-500">
-                      <MapPin className="mr-1 inline h-4 w-4" />
-                      {item.location}
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-neutral-500">
-                      ₦{item.price.toLocaleString()}
-                    </p>
-                  </div>
-                </div>
-              </Link>
+                index={i}
+                slug={item.slug}
+                title={item.title}
+                location={item.location}
+                price={`₦${item.price.toLocaleString("en-NG")}`}
+                image={cover}
+                sold={item.is_sold}
+              />
             );
           })}
         </div>
