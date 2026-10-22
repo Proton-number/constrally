@@ -122,7 +122,7 @@ export default function Hero() {
           custom={0.9}
           className="mt-6 max-w-xl font-serif text-base leading-relaxed text-neutral-300 sm:mt-7 sm:text-lg"
         >
-          We build, develop, and sell exceptional properties across Lagos.
+          We build, develop, and sell exceptional properties across Lagos Tobi.
         </motion.p>
 
         <motion.div
