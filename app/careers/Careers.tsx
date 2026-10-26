@@ -219,14 +219,13 @@ export default function CareersPage() {
         animate="show"
         className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-2 lg:items-start lg:gap-16"
       >
-        {/* Left column */}
         <motion.div
           variants={column}
           className="lg:sticky lg:top-32 lg:self-start lg:pt-6"
         >
           <h1 className="font-serif text-4xl font-medium leading-[1.05] tracking-tight text-neutral-900 sm:text-6xl">
-            <Word>Help</Word> <Word>us</Word> <Word>build</Word>{" "}
-            <Word className="italic text-[#091e3c]">Lagos.</Word>
+            <Word>Let’s</Word> <Word>shape</Word> <Word>the</Word>{" "}
+            <Word className="italic text-[#091e3c]">future.</Word>
           </h1>
 
           <motion.p

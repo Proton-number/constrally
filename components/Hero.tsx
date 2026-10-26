@@ -14,7 +14,6 @@ const stats = [
   { value: "100+", label: "Properties" },
   { value: "50+", label: "Clients" },
   { value: "5+", label: "Locations" },
-  { value: "₦2B+", label: "Developments" },
 ];
 
 const ease = [0.2, 0.7, 0.2, 1] as const;
@@ -122,7 +121,7 @@ export default function Hero() {
           custom={0.9}
           className="mt-6 max-w-xl font-serif text-base leading-relaxed text-neutral-300 sm:mt-7 sm:text-lg"
         >
-          We build, develop, and sell exceptional properties across Lagos Tobi.
+          We build, develop, and sell exceptional properties across Lagos.
         </motion.p>
 
         <motion.div

@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "@/components/ui/toast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Loader from "@/components/Loader";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 

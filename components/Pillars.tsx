@@ -13,21 +13,21 @@ interface Pillar {
 const pillars: Pillar[] = [
   {
     index: "01",
-    title: "Land & Development",
+    title: "Land",
     description:
-      "We acquire, develop, and sell premium land across Lagos's fastest-growing corridors. All titles verified, all documentation clean.",
+      "We acquire and sell premium land across strategic locations, with verified titles and clear documentation to give buyers confidence in every investment.",
   },
   {
     index: "02",
-    title: "Renovation & Flipping",
+    title: "Development / Construction",
     description:
-      "We take underperforming properties, transform them with premium finishes, and sell them as move-in ready homes that exceed expectations.",
+      "We transform properties into high-quality residential and commercial spaces through thoughtful planning, quality construction, and premium finishes that stand the test of time.",
   },
   {
     index: "03",
-    title: "Property Sales",
+    title: "Shortlets and interiors",
     description:
-      "From plots to completed developments, we match the right buyer to the right property with honesty, speed, and professional excellence.",
+      "We create stylish, fully furnished shortlet spaces and thoughtfully designed interiors that combine comfort, functionality, and elegance to deliver exceptional living experiences.",
   },
 ];
 
@@ -75,7 +75,6 @@ export default function Pillars() {
               transition={{ duration: 0.7, ease }}
               className="relative min-h-0 min-w-0 basis-0 cursor-pointer overflow-hidden rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/40"
             >
-        
               <span
                 className={`absolute left-6 top-6 font-serif text-xs uppercase tracking-wider transition-colors duration-500 md:left-8 md:top-8 ${
                   on ? "text-white/60" : "text-neutral-400"
@@ -84,7 +83,6 @@ export default function Pillars() {
                 {pillar.index}
               </span>
 
-            
               <span
                 aria-hidden
                 className={`absolute left-16 top-5.5 font-serif text-base font-medium uppercase tracking-wide text-neutral-900 transition-opacity md:bottom-8 md:left-8 md:top-auto md:rotate-180 md:text-lg md:[writing-mode:vertical-rl] ${
@@ -96,7 +94,6 @@ export default function Pillars() {
                 {pillar.title}
               </span>
 
-            
               <div
                 className={`absolute bottom-6 left-6 right-6 text-white transition-opacity md:bottom-8 md:left-8 md:right-auto md:w-96 ${
                   on
