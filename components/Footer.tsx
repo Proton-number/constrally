@@ -7,6 +7,7 @@ import { getYear } from "date-fns";
 import { motion } from "motion/react";
 
 const explore = [
+  { label: "Partners", href: "https://partners.constrally.com/" },
   { label: "Properties", href: "/#properties" },
   { label: "FAQ", href: "/#faq" },
   { label: "About", href: "/#about" },
@@ -213,8 +214,6 @@ export default function Footer() {
           >
             &copy; {getYear(new Date())} Constrally. All rights reserved.
           </motion.p>
-
-       
         </motion.div>
       </div>
 

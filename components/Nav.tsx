@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const links = [
+  { label: "Partners", href: "https://partners.constrally.com/" },
   { label: "Properties", href: "/#properties" },
   { label: "FAQ", href: "/#faq" },
   { label: "About", href: "/#about" },
