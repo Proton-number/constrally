@@ -10,7 +10,7 @@ import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "./ui/toast";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const ease = [0.2, 0.7, 0.2, 1] as const;
 const viewport = { once: false, amount: 0.2 } as const;
@@ -77,7 +77,6 @@ function Detail({
       </div>
       {href && (
         <>
-          <ArrowUpRight className="h-5 w-5 text-neutral-400 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-neutral-900" />
           <span
             aria-hidden
             className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-neutral-900 transition-transform duration-500 group-hover:scale-x-100"

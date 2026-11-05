@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUp, ArrowUpRight, Phone } from "lucide-react";
+import { ArrowUpRight, Phone } from "lucide-react";
 import { getYear } from "date-fns";
 import { motion } from "motion/react";
 
@@ -24,10 +24,11 @@ const socials = [
   },
 ];
 
+const LEGAL_EMAIL = "legal@constrally.com";
+
 const ease = [0.2, 0.7, 0.2, 1] as const;
 const vp = { once: false, margin: "0px 0px -8% 0px" } as const;
 
-// every variant has a fast "hidden" reset so it replays on scroll back
 const stagger = (gap: number, delay = 0) => ({
   hidden: {},
   show: { transition: { staggerChildren: gap, delayChildren: delay } },
@@ -49,13 +50,15 @@ const letter = {
   show: { y: "0%", transition: { duration: 1, ease } },
 };
 
-// big tap area on phones (about 44px tall), underline draws in on hover
 const linkCls =
   "relative inline-block py-2.5 font-serif text-base text-neutral-300 transition-colors duration-300 hover:text-white sm:py-1 after:absolute after:inset-x-0 after:bottom-2 after:h-px after:origin-left after:scale-x-0 after:bg-white after:transition-transform after:duration-500 hover:after:scale-x-100 sm:after:bottom-0";
 
+const inlineLinkCls =
+  "inline-block border-b border-neutral-500 py-1 text-neutral-200 transition-colors hover:border-white hover:text-white";
+
 function Word({ children }: { children: React.ReactNode }) {
   return (
-    <span className="-mb-[0.15em] inline-block overflow-hidden pb-[0.15em] align-bottom">
+    <span className="mb-[-0.15em] inline-block overflow-hidden pb-[0.15em] align-bottom">
       <motion.span variants={word} className="inline-block">
         {children}
       </motion.span>
@@ -67,7 +70,6 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-[#091e3c] pb-[env(safe-area-inset-bottom)] text-white">
       <div className="mx-auto max-w-6xl px-6 pt-14 sm:pt-20">
-        {/* statement + actions */}
         <motion.div
           variants={stagger(0.07, 0.1)}
           initial="hidden"
@@ -81,7 +83,6 @@ export default function Footer() {
             <Word>conversation.</Word>
           </h2>
 
-          {/* two equal buttons on phones, natural width on desktop */}
           <motion.div variants={rise} className="flex w-full gap-3 md:w-auto">
             <a
               href="https://wa.me/message/VC4XY56ZPVCVO1"
@@ -107,7 +108,6 @@ export default function Footer() {
           </motion.div>
         </motion.div>
 
-        {/* brand on top, then Explore and Connect side by side */}
         <motion.div
           variants={stagger(0.12)}
           initial="hidden"
@@ -178,13 +178,12 @@ export default function Footer() {
           </motion.div>
         </motion.div>
 
-        {/* bottom bar */}
         <motion.div
           variants={stagger(0.1)}
           initial="hidden"
           whileInView="show"
           viewport={vp}
-          className="relative mt-10 grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-4 py-6 sm:mt-14 sm:flex sm:justify-between"
+          className="relative mt-10 grid grid-cols-1 items-start gap-y-4 py-6 sm:mt-14 sm:flex sm:justify-between sm:gap-x-8"
         >
           <motion.span
             aria-hidden
@@ -192,21 +191,28 @@ export default function Footer() {
             className="absolute inset-x-0 top-0 h-px origin-left bg-white/15"
           />
 
-          {/* CAC line first on phones, middle on desktop */}
-          <motion.p
+          <motion.div
             variants={rise}
-            className="order-1 col-span-2 font-serif text-xs uppercase leading-relaxed tracking-wider text-neutral-400 sm:order-2 sm:col-span-1"
+            className="order-1 space-y-1 font-serif text-xs uppercase leading-relaxed tracking-wider text-neutral-400 sm:order-2 sm:text-right"
           >
-            Registered with CAC, RC 9284769.{" "}
-            <a
-              href="https://search.cac.gov.ng"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block border-b border-neutral-500 py-1 text-neutral-200 transition-colors hover:border-white hover:text-white"
-            >
-              Verify
-            </a>
-          </motion.p>
+            <p>
+              Registered with CAC, RC 9284769.{" "}
+              <a
+                href="https://search.cac.gov.ng"
+                target="_blank"
+                rel="noreferrer"
+                className={inlineLinkCls}
+              >
+                Verify
+              </a>
+            </p>
+            <p>
+              For legal issues, contact{" "}
+              <a href={`mailto:${LEGAL_EMAIL}`} className={inlineLinkCls}>
+                {LEGAL_EMAIL}
+              </a>
+            </p>
+          </motion.div>
 
           <motion.p
             variants={rise}
@@ -217,7 +223,6 @@ export default function Footer() {
         </motion.div>
       </div>
 
-      {/* decorative wordmark: larger on phones so it spans the width */}
       <motion.div
         aria-hidden
         variants={stagger(0.05)}

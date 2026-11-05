@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "@/components/ui/toast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Scroll from "@/components/Scroll";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -72,6 +73,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SpeedInsights />
         <Analytics />
         {/* <Loader /> */}
+        <Scroll />
         {children}
         <Toaster />
         <Footer />
