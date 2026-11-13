@@ -101,11 +101,11 @@ const departments: Department[] = [
         role: "Sales Executive",
         focus: "Sales growth",
       },
-      {
-        name: "Jeffrey Ibeneme",
-        role: "Sales Executive",
-        focus: "Sales growth",
-      },
+      // {
+      //   name: "Jeffrey Ibeneme",
+      //   role: "Sales Executive",
+      //   focus: "Sales growth",
+      // },
     ],
   },
   {
