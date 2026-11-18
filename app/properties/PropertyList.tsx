@@ -33,7 +33,7 @@ function Word({
   className?: string;
 }) {
   return (
-    <span className="-mb-[0.15em] -mr-[0.08em] inline-block overflow-hidden pb-[0.15em] pr-[0.08em] align-bottom">
+    <span className="mb-[-0.15em] mr-[-0.08em] inline-block overflow-hidden pb-[0.15em] pr-[0.08em] align-bottom">
       <motion.span variants={word} className={`inline-block ${className}`}>
         {children}
       </motion.span>
@@ -41,7 +41,6 @@ function Word({
   );
 }
 
-/* ---------- page header: plays on load ---------- */
 export function PropertiesHeader({ count }: { count: number }) {
   return (
     <motion.div variants={stagger(0.08, 0.1)} initial="hidden" animate="show">
@@ -76,7 +75,6 @@ export function PropertiesHeader({ count }: { count: number }) {
   );
 }
 
-/* ---------- empty state ---------- */
 export function EmptyState() {
   return (
     <motion.div
@@ -101,7 +99,7 @@ export function EmptyState() {
   );
 }
 
-/* ---------- listing card: replays when scrolled into view ---------- */
+
 const card = {
   hidden: {},
   show: (col: number) => ({

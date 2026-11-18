@@ -14,8 +14,8 @@ const links = [
   { label: "Our People", href: "/people" },
   { label: "Engineering", href: "/engineering" },
   { label: "Partners", href: "https://partners.constrally.com/" },
+  { label: "Shortlets", href: "/shortlets" },
   { label: "Careers", href: "/careers" },
-  { label: "FAQ", href: "/#faq" },
   { label: "Contact Us", href: "/#contact" },
 ];
 

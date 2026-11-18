@@ -179,10 +179,6 @@ export default function NewPropertyPage() {
   return (
     <section className="px-6 py-16">
       <div className="mx-auto max-w-4xl">
-        <span className="font-serif text-[10px] font-medium uppercase tracking-widest text-neutral-500">
-          Listing Builder
-        </span>
-
         <h1 className="mt-2 font-serif text-3xl font-medium tracking-tight text-neutral-900 md:text-4xl">
           Create Property Listing
         </h1>

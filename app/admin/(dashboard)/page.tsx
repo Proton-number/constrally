@@ -9,7 +9,7 @@ export default async function AdminPage() {
   } = await supabase.auth.getUser();
 
   return (
-    <main className="min-h-screen p-8">
+    <main className="min-h-screen p-8 pt-20">
       <div className="mx-auto max-w-6xl">
         <div>
           <h1 className="text-3xl font-bold">Admin Dashboard</h1>
@@ -45,6 +45,35 @@ export default async function AdminPage() {
 
             <span className="mt-6 flex gap-2 items-center text-sm font-medium">
               Add Property <MoveRight className="opacity-70 w-4 h-4" />
+            </span>
+          </Link>
+          <Link
+            href="/admin/shortlets"
+            className="rounded-xl border bg-background p-6 transition hover:bg-muted"
+          >
+            <h2 className="text-xl font-semibold">Shortlets</h2>
+
+            <p className="mt-2 text-sm text-muted-foreground">
+              View, edit and delete your shortlet listings.
+            </p>
+
+            <span className="mt-6 flex gap-2 items-center text-sm font-medium">
+              Manage Shortlets
+              <MoveRight className="opacity-70 w-4 h-4" />
+            </span>
+          </Link>
+          <Link
+            href="/admin/shortlets/new"
+            className="rounded-xl border bg-background p-6 transition hover:bg-muted"
+          >
+            <h2 className="text-xl font-semibold">Add Shortlets</h2>
+
+            <p className="mt-2 text-sm text-muted-foreground">
+              Create a new shortlet listing.
+            </p>
+
+            <span className="mt-6 flex gap-2 items-center text-sm font-medium">
+              Add Shortlet <MoveRight className="opacity-70 w-4 h-4" />
             </span>
           </Link>
         </div>
